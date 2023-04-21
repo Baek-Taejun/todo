@@ -2,55 +2,33 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react'; 
 
-function App() {
-  const [amount, setAmount] = useState();
-  const [inverted,setInverted] = useState(false);
-  const onChange=(event)=>{
-    setAmount(event.target.value);
-  }
 
-  const reset = ()=> setAmount(0);
-  const onFlip = ()=>{
-      reset();
-      setInverted((current)=> !current);
-  }
+function Btn({text, onClick}){
+  return<button
+  onClick={onClick}
+    style={{
+    backgroundColor : "tomato",
+    color : "white",
+    padding : "10px 20px",
+    border : 0,
+    borderRadius : 10,
+
+  }}>{text}</button>
+}
+
+function App() {  
+  const [value,setValue]=useState("Save Changes");
+  const changeValue = () => setValue("Revert Change");
+
   return ( 
     <div>
-        <h1 className="hi">Super Converter</h1> 
-
-        <div>
-        <label htmlFor="minutes">Minutes</label>
-        <input 
-        value={inverted ? amount * 60 : amount} 
-        id="minutes"  
-        placeholder= "Minutes" 
-        type = "number" 
-        disabled={inverted}
-        onChange={onChange}
-
-        /> 
-        </div>
-
-
-        <div>
-        <h4>You want to convert : {amount}</h4>
-        <label htmlFor="hours" >Hours</label>
-        <input 
-        value={inverted ? amount  : Math.round(amount / 60)} 
-        id="hours" 
-        placeholder= "Hours" 
-        type = "number" 
-        disabled={!inverted}
-        onChange={onChange}
-  
-        />
-        </div>
-
-        <button onClick={reset}>Reset</button>
-        <button onClick={onFlip}>Flip</button>
+    <Btn text = {value} onClick={changeValue} />
+    <Btn text = "Continue" />
 
     </div>
         );
-}
+  };
 
-export default App;
+
+
+export default App; 
